@@ -1,11 +1,10 @@
+import RoutesContainer from "./routes/Routes"
+import Routes from "./routes/Routes"
 
 
 function App() {
-
   return (
-    <div className="text-lg text-center text-blue-400">
-      Write On!
-    </div>
+    <RoutesContainer />
   )
 }
 
