@@ -2,7 +2,12 @@ import React from 'react'
 
 const Login = () => {
   return (
-    <div>Login</div>
+    <div>
+
+      {/* <form action="">< */}
+        {/* </form> */}
+    login
+    </div>
   )
 }
 
