@@ -1,10 +1,14 @@
-import RoutesContainer from "./routes/Routes"
-import Routes from "./routes/Routes"
+import { ToastContainer } from "react-toastify"
+import Routes from "./routes"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
   return (
-    <RoutesContainer />
+    <>
+      <ToastContainer />
+      <Routes />
+    </>
   )
 }
 
