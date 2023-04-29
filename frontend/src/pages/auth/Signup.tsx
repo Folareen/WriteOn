@@ -1,8 +1,6 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
-import { auth } from '../../../firebase.config'
 import AuthContainer from '../../components/auth/AuthContainer'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import formatErrorMessage from '../../utils/formatErrorMessage'
 
 const Signup = () => {
@@ -11,15 +9,6 @@ const Signup = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-
-    try {
-      const data = await createUserWithEmailAndPassword(auth, email, password)
-      console.log(data)
-    } catch (error) {
-      toast.error(formatErrorMessage(error.message))
-    } finally {
-      console.log('finally')
-    }
 
 
   }
