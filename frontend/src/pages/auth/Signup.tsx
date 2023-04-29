@@ -2,13 +2,26 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
 import { auth } from '../../../firebase.config'
 import AuthContainer from '../../components/auth/AuthContainer'
+import {toast} from 'react-toastify'
+import formatErrorMessage from '../../utils/formatErrorMessage'
 
 const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const handleSubmit = (e: any) => {
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
-    createUserWithEmailAndPassword(auth, email, password).then(() => console.log('welcome!')).catch(() => console.log('err')).finally()
+
+    try {
+      const data = await createUserWithEmailAndPassword(auth, email, password)
+      console.log(data)
+    } catch (error) {
+      toast.error(formatErrorMessage(error.message))
+    } finally {
+      console.log('finally')
+    }
+
+
   }
   return (
     // <div>
@@ -22,7 +35,7 @@ const Signup = () => {
 
       <form onSubmit={handleSubmit}>
 
-        <div>
+        {/* <div>
 
           <div>
             <p>
@@ -38,7 +51,7 @@ const Signup = () => {
             <input type="password" name="" id="" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full my-4 border p-2 rounded-md' />
           </div>
 
-        </div>
+        </div> */}
 
 
 
@@ -49,10 +62,13 @@ const Signup = () => {
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} name="" id="" className='w-full my-4 border p-2 rounded-md' placeholder='mail@mail.com' />
         </div>
         <div>
+          <p>
+            Password
+          </p>
           <input type="password" name="" id="" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full my-4 border p-2 rounded-md' />
         </div>
 
-        <button onClick={handleSubmit} className=' w-full bg-blue-300 text-white p-2 rounded-md' >
+        <button onClick={handleSubmit} className=' w-full bg-indigo-300 text-white p-2 rounded-md' >
           Signup
         </button>
       </form>

@@ -5,7 +5,7 @@ import authImg from '../../assets/authImg.jpg'
 //     <form className='w-[300px] drop-shadow-md py-8 bg-gray-50 px-4' onSubmit={handleSubmit}>
 //       <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} name="" id="" className='w-full my-4 border ' />
 //       <input type="password" name="" id="" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full my-4 border ' />
-//       <button onClick={handleSubmit} className=' w-full bg-blue-300 text-white' >
+//       <button onClick={handleSubmit} className=' w-full bg-indigo-300 text-white' >
 //         Signup
 //       </button>
 //     </form>
@@ -18,13 +18,13 @@ const AuthContainer = ({ children, title }) => {
             <div className='w-1/2 flex items-center p-10'>
 
                 <div className='w-full'>
-                    <h3 className='text-xl font-bold text-blue-900 mb-10'>
+                    <h3 className='text-xl font-bold text-indigo-900 mb-10'>
                         {title}
                     </h3>
                     {children}
 
                     <div className='h-[1px] w-full bg-gray-400 my-4'></div>
-                    <button className='outline-none  bg-white text-center mx-2 border-solid border-[1px] border-blue-200 p-2 rounded-md'>
+                    <button className='outline-none  bg-white text-center mx-2 border-solid border-[1px] border-indigo-200 p-2 rounded-md'>
                         sign in with google
                     </button>
                 </div>
