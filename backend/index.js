@@ -1,11 +1,19 @@
 const express = require('express');
 const cors = require('cors');
-const { connect } = require('mongoose');
 const connectToDB = require('./src/utils/connectToDB');
 require('dotenv').config();
+const authRouter = require('./src/routes/auth');
+const notFound = require('./src/middlewares/notFound');
 
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use('/api/v1', authRouter)
+app.use(notFound);
+
+
 const port = process.env.PORT || 5000;
 const startServer = async () => {
     try {
