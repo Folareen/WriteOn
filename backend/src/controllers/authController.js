@@ -37,7 +37,33 @@ const signup = async (req, res) => {
 
 
 const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
 
+        if (!email || !password) {
+            return res.status(400).json({ message: `Email and password are required!` })
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid credentials!' });
+        }
+
+        const comparePassword = await bcrypt.compare(password, user.password);
+
+        if(!comparePassword) {
+            return res.status(400).json({ message: 'Invalid credentials!' });
+        }
+
+        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET);
+
+        res.status(200).json({ message: 'Login successful', token });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Unable to login' });
+    }
 }
 
 
