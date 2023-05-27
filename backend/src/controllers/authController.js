@@ -7,10 +7,8 @@ const signup = async (req, res) => {
         const { username, firstName, lastName, email, password } = req.body;
 
         if(!username || !firstName || !lastName || !email || !password) {
-            res.status(400).json({ message: `All fields are required!` })
+            return res.status(400).json({ message: `All fields are required!` })
         }
-
-        console.log(req.body);
 
         const userExists = await User.findOne({ email });
         if(userExists) {
@@ -24,14 +22,11 @@ const signup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const userData = { username, firstName, lastName, email}
-        userData.password = hashedPassword;
-
-        const user = await User.create(userData);
+        const user = await User.create({ username, firstName, lastName, email, password});
 
         const token = jwt.sign({ _id : user._id, email : user.email, username : user.username, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET);
 
-        res.status(201).json({ message: 'User created successfully', token });
+        res.status(201).json({ message: 'Account created successfully', token });
 
     } catch (error) {
         console.log(error);
