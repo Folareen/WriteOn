@@ -7,7 +7,7 @@ const editProfile = async (req, res) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const { username, firstName, lastName, email } = req.body;
         if(!username && !firstName && !lastName && !email){
-            res.sendStatus(400)
+            return res.sendStatus(400)
         }
         const user = await User.findOne({ _id: decodedToken._id });
         if(username){
