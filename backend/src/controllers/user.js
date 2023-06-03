@@ -1,5 +1,6 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const Blog = require("../models/Blog");
 
 const editProfile = async (req, res) => {
     try{
@@ -47,6 +48,8 @@ const getUser = async (req, res) => {
             return res.status(404).json({ message: 'User not found' })
         }
 
+        const blogs = await Blog.find({author : user._id})
+
         res.status(200).json({
             user: {
                 _id: user._id,
@@ -54,7 +57,8 @@ const getUser = async (req, res) => {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
-            }
+            },
+            blogs
         })
 
     } catch (err) {
