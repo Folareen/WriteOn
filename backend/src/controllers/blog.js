@@ -1,6 +1,16 @@
 const Blog = require("../models/Blog")
 const getUserFromToken = require("../utils/getUserFromToken")
 
+const getBlogs = async (req, res) => {
+    try {
+        const blogs = await Blog.find({}).populate("author")
+        res.status(200).json({ blogs })
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ message: 'Something went wrong' })
+    }
+}
+
 const createBlog = async (req, res) => {
     try {
         const { author, title, content, category } = req.body
@@ -42,5 +52,6 @@ const createBlog = async (req, res) => {
 
 
 module.exports = {
-    createBlog
+    createBlog,
+    getBlogs
 }
