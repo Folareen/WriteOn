@@ -34,11 +34,38 @@ const editProfile = async (req, res) => {
 
     } catch(error){
         console.log(error.message)
-        res.status(500).json({message: 'something went wrong'})
+        res.status(500).json({ message: 'something went wrong' })
     }
 }
 
 
+const getUser = async (req, res) => {
+    try {
+        const { username } = req.params
+        const user = await User.findOne({ username })
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' })
+        }
+
+        res.status(200).json({
+            user: {
+                _id: user._id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+            }
+        })
+
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ message: 'Something went wrong' })
+    }
+
+}
+
+
 module.exports = {
-    editProfile
+    editProfile,
+    getUser
 }
