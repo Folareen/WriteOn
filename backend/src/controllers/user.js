@@ -1,16 +1,15 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
 const Blog = require("../models/Blog");
+const getUserFromToken = require("../utils/getUserFromToken")
 
 const editProfile = async (req, res) => {
     try{
-        const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const { username, firstName, lastName, email } = req.body;
         if(!username && !firstName && !lastName && !email){
             return res.sendStatus(400)
         }
-        const user = await User.findOne({ _id: decodedToken._id });
+        const decodedUser = getUserFromToken
+        const user = await User.findOne({ _id: decodedUser._id });
         if(username){
             user.username = username
         }
@@ -35,7 +34,7 @@ const editProfile = async (req, res) => {
 
     } catch(error){
         console.log(error.message)
-        res.status(500).json({ message: 'something went wrong' })
+        res.status(500).json({ message: 'Something went wrong' })
     }
 }
 
