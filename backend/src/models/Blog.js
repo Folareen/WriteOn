@@ -31,7 +31,7 @@ const BlogSchema = new Schema({
     published: {
         type: Boolean,
         required: true,
-        default: true
+        default: false
     }
 }, {timestamps : true})
 
