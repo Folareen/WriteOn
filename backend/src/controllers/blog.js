@@ -93,8 +93,27 @@ const editBlog = async (req, res) => {
     }
 }
 
+const deleteBlog = async (req, res) => {
+    try {
+        const user = req.user
+        const { id } = req.params
+        const blog = await Blog.findOne({id, author: user._id})
+        if(!blog){
+            return res.status(404).json({message: 'Blog not found'})
+        }
+        
+        await blog.deleteOne()
+
+        res.status(200).json({ message: 'Blog deleted successfully'})
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ message: 'Something went wrong' })
+    }
+}
+
 module.exports = {
     createBlog,
     getBlogs,
-    editBlog
+    editBlog,
+    deleteBlog
 }
