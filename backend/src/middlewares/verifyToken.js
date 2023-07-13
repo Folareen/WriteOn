@@ -16,6 +16,8 @@ const verifyToken =  (req, res, next) => {
         if(!decodedToken) {
             return res.status(401).json({message: 'Unathorized!'})
         }
+        
+        req.user = decodedToken
 
         next();
     }catch(err){
