@@ -31,6 +31,9 @@ const BlogSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    }, likes: {
+        type: [Schema.Types.ObjectId],
+        default: []
     }
 }, {timestamps : true})
 
