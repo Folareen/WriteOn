@@ -13,7 +13,6 @@ const BlogSchema = new Schema({
     },
     id: {
         type: String,
-        unique: true,
     },
     description: {
         type: String,
