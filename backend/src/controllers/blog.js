@@ -111,9 +111,36 @@ const deleteBlog = async (req, res) => {
     }
 }
 
+const likeBlog = async (req, res) => {
+    try {
+        const user = req.user
+        const { id } = req.params
+        const blog = await Blog.findOne({id, author: user._id})
+        if(!blog){
+            return res.status(404).json({message: 'Blog not found'})
+        }
+
+        const likes = blog.likes
+
+        if(likes.includes(user._id)){
+            return res.status(400).json({message: 'Blog liked already'})
+        }
+        
+        blog.likes = [...likes, user._id]
+
+        await blog.save()
+
+        res.status(200).json({ likes: blog.likes, likesCount: blog.likes.length,  message: 'Blog liked successfully'})
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ message: 'Something went wrong' })
+    }
+}
+
 module.exports = {
     createBlog,
     getBlogs,
     editBlog,
-    deleteBlog
+    deleteBlog,
+    likeBlog
 }
