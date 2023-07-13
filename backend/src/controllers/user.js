@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const Blog = require("../models/Blog");
-const getUserFromToken = require("../utils/getUserFromToken")
 
 const editProfile = async (req, res) => {
     try{
@@ -8,8 +7,7 @@ const editProfile = async (req, res) => {
         if(!username && !firstName && !lastName && !email){
             return res.sendStatus(400)
         }
-        const decodedUser = getUserFromToken
-        const user = await User.findOne({ _id: decodedUser._id });
+        const user = await User.findOne({ _id: req.user._id });
         if(username){
             user.username = username
         }
