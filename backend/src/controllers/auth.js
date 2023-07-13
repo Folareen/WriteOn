@@ -22,7 +22,7 @@ const signup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await User.create({ username, firstName, lastName, email, hashedPassword });
+        const user = await User.create({ username, firstName, lastName, email, password: hashedPassword });
 
         const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET);
 
