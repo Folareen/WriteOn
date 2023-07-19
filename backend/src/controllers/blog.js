@@ -173,7 +173,7 @@ const addComment = async (req, res) => {
             return res.status(400).json({ message: 'Content is required' })
         }
 
-        const blog = await Blog.findById(id)
+        const blog = await Blog.findOne({ id })
 
         if (!blog) {
             return res.status(404).json({ message: 'Blog not found' })
