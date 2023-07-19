@@ -1,5 +1,5 @@
 const {Router} = require("express")
-const {createBlog, getBlogs, editBlog, deleteBlog, likeBlog, unlikeBlog, addComment } = require("../controllers/blog")
+const {createBlog, getBlogs, editBlog, deleteBlog, likeBlog, unlikeBlog, addComment, getBlog } = require("../controllers/blog")
 const verifyToken = require("../middlewares/verifyToken")
 
 const router = Router()
@@ -10,6 +10,6 @@ router.use(verifyToken)
 router.route('/:id/like').patch(likeBlog)
 router.route('/:id/unlike').patch(unlikeBlog)
 router.route('/:id/comment').patch(addComment)
-router.route('/:id').patch(editBlog).delete(deleteBlog)
+router.route('/:id').patch(editBlog).delete(deleteBlog).get(getBlog)
 
 module.exports = router
