@@ -203,6 +203,21 @@ const addComment = async (req, res) => {
     }
 }
 
+const getBlog = async (req, res) => {
+    try {
+        const { id } = req.params
+        const blog = await Blog.findOne({ id })
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
+        }
+
+        res.status(200).json({ blog })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({ message: 'Something went wrong' })
+    }
+}
+
 module.exports = {
     createBlog,
     getBlogs,
@@ -210,5 +225,6 @@ module.exports = {
     deleteBlog,
     likeBlog,
     unlikeBlog,
-    addComment
+    addComment,
+    getBlog
 }
