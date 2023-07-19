@@ -39,8 +39,8 @@ const createBlog = async (req, res) => {
             id: blogId, author: user._id
         })
 
-        if(titleExists){
-            return res.status(400).json({message: 'Title in use'})
+        if (titleExists) {
+            return res.status(400).json({ message: 'Title in use' })
         }
 
         const blog = await Blog.create({
@@ -60,33 +60,33 @@ const editBlog = async (req, res) => {
     try {
         const user = req.user
         const { id } = req.params
-        const blog = await Blog.findOne({id, author: user._id})
-        if(!blog){
-            return res.status(404).json({message: 'Blog not found'})
+        const blog = await Blog.findOne({ id, author: user._id })
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
         }
 
         const { title, content, description, category, published } = req.body
 
-        if(title){
+        if (title) {
             blog.title = title
         }
-        if(content){
+        if (content) {
             blog.content = content
         }
-        if(description){
+        if (description) {
             blog.description = description
         }
-        if(category){
+        if (category) {
             blog.category = category
         }
-        if(published != undefined || published != null){
+        if (published != undefined || published != null) {
             blog.published = published
         }
 
         await blog.save()
 
-        
-        res.status(200).json({ message: 'Blog updated successfully'})
+
+        res.status(200).json({ message: 'Blog updated successfully' })
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'Something went wrong' })
@@ -97,14 +97,14 @@ const deleteBlog = async (req, res) => {
     try {
         const user = req.user
         const { id } = req.params
-        const blog = await Blog.findOne({id, author: user._id})
-        if(!blog){
-            return res.status(404).json({message: 'Blog not found'})
+        const blog = await Blog.findOne({ id, author: user._id })
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
         }
-        
+
         await blog.deleteOne()
 
-        res.status(200).json({ message: 'Blog deleted successfully'})
+        res.status(200).json({ message: 'Blog deleted successfully' })
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'Something went wrong' })
@@ -115,22 +115,22 @@ const likeBlog = async (req, res) => {
     try {
         const user = req.user
         const { id } = req.params
-        const blog = await Blog.findOne({id, author: user._id})
-        if(!blog){
-            return res.status(404).json({message: 'Blog not found'})
+        const blog = await Blog.findOne({ id, author: user._id })
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
         }
 
         const likes = blog.likes
 
-        if(likes.includes(user._id)){
-            return res.status(400).json({message: 'Blog liked already'})
+        if (likes.includes(user._id)) {
+            return res.status(400).json({ message: 'Blog liked already' })
         }
-        
+
         blog.likes = [...likes, user._id]
 
         await blog.save()
 
-        res.status(200).json({ likes: blog.likes, likesCount: blog.likes.length,  message: 'Blog liked successfully'})
+        res.status(200).json({ likes: blog.likes, likesCount: blog.likes.length, message: 'Blog liked successfully' })
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'Something went wrong' })
@@ -141,25 +141,64 @@ const unlikeBlog = async (req, res) => {
     try {
         const user = req.user
         const { id } = req.params
-        const blog = await Blog.findOne({id, author: user._id})
-        if(!blog){
-            return res.status(404).json({message: 'Blog not found'})
+        const blog = await Blog.findOne({ id, author: user._id })
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
         }
 
         const likes = blog.likes
 
-        if(!likes.includes(user._id)){
-            return res.status(400).json({message: 'Blog not liked'})
+        if (!likes.includes(user._id)) {
+            return res.status(400).json({ message: 'Blog not liked' })
         }
 
-        
+
         blog.likes = likes.filter((like) => like != user._id)
 
         await blog.save()
 
-        res.status(200).json({ likes: blog.likes, likesCount: blog.likes.length,  message: 'Blog unliked successfully'})
+        res.status(200).json({ likes: blog.likes, likesCount: blog.likes.length, message: 'Blog unliked successfully' })
     } catch (err) {
         console.log(err.message)
+        res.status(500).json({ message: 'Something went wrong' })
+    }
+}
+
+const addComment = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { content } = req.body
+
+        if (!content) {
+            return res.status(400).json({ message: 'Content is required' })
+        }
+
+        const blog = await Blog.findById(id)
+
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
+        }
+
+        const comment = {
+            authorUsername: req.user.username,
+            authorFirstname: req.user.firstName,
+            authorLastname: req.user.lastName,
+            authorId: req.user._id,
+            content,
+            date: new Date()
+        }
+
+        blog.comments = [
+            ...blog.comments,
+            comment
+        ]
+
+        await blog.save()
+
+        res.status(200).json({ message: 'Comment added' })
+
+    } catch (error) {
+        console.log(error.message)
         res.status(500).json({ message: 'Something went wrong' })
     }
 }
@@ -170,5 +209,6 @@ module.exports = {
     editBlog,
     deleteBlog,
     likeBlog,
-    unlikeBlog
+    unlikeBlog,
+    addComment
 }
