@@ -1,4 +1,31 @@
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require('mongoose')
+
+const CommentSchema = new Schema({
+    authorUsername: {
+        type: String,
+        required: true
+    },
+    authorFirstname: {
+        type: String,
+        required: true
+    },
+    authorLastname: {
+        type: String,
+        required: true
+    },
+    authorId: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        required: true
+    }
+})
 
 const BlogSchema = new Schema({
     author: {
@@ -34,8 +61,12 @@ const BlogSchema = new Schema({
     }, likes: {
         type: [Schema.Types.ObjectId],
         default: []
+    },
+    comments: {
+        type: [CommentSchema],
+        default: []
     }
-}, {timestamps : true})
+}, { timestamps: true })
 
 
 const Blog = model('Blog', BlogSchema)
