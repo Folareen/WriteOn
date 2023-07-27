@@ -6,12 +6,24 @@ const authRouter = require('./src/routes/auth');
 const userRouter = require('./src/routes/user')
 const blogRouter = require('./src/routes/blog')
 const notFound = require('./src/middlewares/notFound');
+const fileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary')
 
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp'
+}))
+
 app.use('/api/v1', authRouter)
 app.use('/api/v1/user', userRouter)
 app.use('/api/v1/blog', blogRouter)
