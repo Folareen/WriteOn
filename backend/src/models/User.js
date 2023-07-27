@@ -1,6 +1,10 @@
 const {Schema, model} = require('mongoose');
 
 const userSchema = new Schema({
+    avatar: {
+        type: String,
+        default: 'https://res.cloudinary.com/ddcy4lnrw/image/upload/v1690479888/writeon--user-avatars/m1lectmqlw9zhyqdqjgb.png'
+    },
     username: {
         type: String,
         required: true,
