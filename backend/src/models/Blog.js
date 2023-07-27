@@ -32,11 +32,14 @@ const BlogSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    coverImage: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true,
         minLength: 3,
-        maxLength: 20
     },
     id: {
         type: String,
