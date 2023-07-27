@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('cloudinary')
 
 const signup = async (req, res) => {
     try {
@@ -20,11 +21,22 @@ const signup = async (req, res) => {
             return res.status(400).json({ message: 'Username already taken!' });
         }
 
+        let avatar = null
+
+        if (req?.files?.avatar) {
+            const result = await cloudinary.v2.uploader.upload(req.files.avatar.tempFilePath, { folder: 'writeon--user-avatars' })
+            avatar = result.secure_url
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({ username, firstName, lastName, email, password: hashedPassword });
 
-        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET);
+        if(avatar){
+            user.avatar = avatar
+        }
+
+        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, firstName: user.firstName, lastName: user.lastName, avatar }, process.env.JWT_SECRET);
 
         res.status(201).json({ message: 'Account created successfully', token });
 
@@ -52,7 +64,7 @@ const login = async (req, res) => {
 
         const comparePassword = await bcrypt.compare(password, user.password);
 
-        if(!comparePassword) {
+        if (!comparePassword) {
             return res.status(400).json({ message: 'Invalid credentials!' });
         }
 
