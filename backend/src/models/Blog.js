@@ -65,6 +65,10 @@ const BlogSchema = new Schema({
     comments: {
         type: [CommentSchema],
         default: []
+    },
+    viewCount: {
+        type: Number,
+        default: 0,
     }
 }, { timestamps: true })
 
