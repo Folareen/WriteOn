@@ -41,8 +41,8 @@ const createBlog = async (req, res) => {
             return res.status(400).json({ message: 'Title in use' })
         }
 
-        if(!req?.files?.coverImage){
-            return res.status(400).json({message: 'Cover image is required'})
+        if (!req?.files?.coverImage) {
+            return res.status(400).json({ message: 'Cover image is required' })
         }
 
         let coverImage = null
@@ -93,10 +93,16 @@ const editBlog = async (req, res) => {
             blog.published = published
         }
 
+
+        if (req?.files?.coverImage) {
+            const result = await cloudinary.v2.uploader.upload(req.files.coverImage.tempFilePath, { folder: 'writeon--blog--cover-images' })
+            blog.coverImage = result.secure_url
+        }
+
         await blog.save()
 
 
-        res.status(200).json({ message: 'Blog updated successfully' })
+        res.status(200).json({ message: 'Blog updated successfully', blog })
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'Something went wrong' })
