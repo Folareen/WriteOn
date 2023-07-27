@@ -1,4 +1,5 @@
 const Blog = require("../models/Blog")
+const cloudinary = require('cloudinary')
 
 const getBlogs = async (req, res) => {
     try {
@@ -23,9 +24,6 @@ const createBlog = async (req, res) => {
         if (title.length < 3) {
             return res.status(400).json({ message: 'Title should be atleast three characters' })
         }
-        if (title.length > 20) {
-            return res.status(400).json({ message: 'Title should not be more than twenty characters' })
-        }
         if (!content) {
             return res.status(400).json({ message: 'Content is required' })
         }
@@ -43,9 +41,21 @@ const createBlog = async (req, res) => {
             return res.status(400).json({ message: 'Title in use' })
         }
 
+        if(!req?.files?.coverImage){
+            return res.status(400).json({message: 'Cover image is required'})
+        }
+
+        let coverImage = null
+
+        if (req?.files) {
+            const result = await cloudinary.v2.uploader.upload(req.files.coverImage.tempFilePath, { folder: 'writeon--blog--cover-images' })
+            coverImage = result.secure_url
+        }
+
         const blog = await Blog.create({
             ...req.body,
-            author: user._id, id: blogId
+            author: user._id, id: blogId,
+            coverImage
         })
 
         res.status(201).json({ blog, message: "Blog created successfully" })
