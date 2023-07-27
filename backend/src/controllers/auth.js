@@ -36,6 +36,8 @@ const signup = async (req, res) => {
             user.avatar = avatar
         }
 
+        await user.save()
+
         const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, firstName: user.firstName, lastName: user.lastName, avatar }, process.env.JWT_SECRET);
 
         res.status(201).json({ message: 'Account created successfully', token });
