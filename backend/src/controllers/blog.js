@@ -46,11 +46,8 @@ const createBlog = async (req, res) => {
         }
 
         let coverImage = null
-
-        if (req?.files) {
-            const result = await cloudinary.v2.uploader.upload(req.files.coverImage.tempFilePath, { folder: 'writeon--blog--cover-images' })
-            coverImage = result.secure_url
-        }
+        const result = await cloudinary.v2.uploader.upload(req.files.coverImage.tempFilePath, { folder: 'writeon--blog--cover-images' })
+        coverImage = result.secure_url
 
         const blog = await Blog.create({
             ...req.body,
