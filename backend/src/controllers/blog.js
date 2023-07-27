@@ -3,7 +3,17 @@ const cloudinary = require('cloudinary')
 
 const getBlogs = async (req, res) => {
     try {
-        const blogs = await Blog.find({}).populate("author")
+        let query = { published: true }
+        const { category, page = 1, search } = req.query
+        if (category) {
+            query.category = category
+        }
+        if (search) {
+            query.title = { $regex: new RegExp(search, 'i') }
+        }
+
+        const blogs = await Blog.find(query).populate("author").skip((page - 1) * 10).limit(10)
+
         res.status(200).json({ blogs })
     } catch (err) {
         console.log(err.message)
