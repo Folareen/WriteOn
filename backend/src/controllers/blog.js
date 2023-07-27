@@ -207,9 +207,13 @@ const getBlog = async (req, res) => {
     try {
         const { id } = req.params
         const blog = await Blog.findOne({ id })
+
         if (!blog) {
             return res.status(404).json({ message: 'Blog not found' })
         }
+
+        blog.viewCount = blog.viewCount + 1
+        await blog.save()
 
         res.status(200).json({ blog })
     } catch (error) {
