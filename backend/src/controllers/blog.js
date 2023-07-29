@@ -14,7 +14,10 @@ const getBlogs = async (req, res) => {
 
         const blogs = await Blog.find(query).populate("author").skip((page - 1) * 10).limit(10)
 
-        res.status(200).json({ blogs })
+        const count = await Blog.countDocuments()
+        const pages = Math.ceil(count / 10)
+
+        res.status(200).json({ blogs, page, count, pages  })
     } catch (err) {
         console.log(err.message)
         res.status(500).json({ message: 'Something went wrong' })
