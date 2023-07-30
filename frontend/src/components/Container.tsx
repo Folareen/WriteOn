@@ -2,12 +2,13 @@ import React from 'react'
 
 type Props = {
     className?: string,
-    children: React.ReactNode
+    children: React.ReactNode,
+    style?: React.CSSProperties
 }
 
-const Container = ({ className, children }: Props) => {
+const Container = ({ className, children, style }: Props) => {
     return (
-        <div className={`px-6 lg:px-36 ${className}`}>
+        <div className={`px-6 lg:px-36 ${className}`} style={style}>
             {children}
         </div>
     )
