@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import AuthContainer from '../../components/auth/AuthContainer'
 import { toast } from 'react-toastify'
-import formatErrorMessage from '../../utils/formatErrorMessage'
 
 const Signup = () => {
   const [email, setEmail] = useState('')
