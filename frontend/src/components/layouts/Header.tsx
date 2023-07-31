@@ -22,7 +22,7 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
       <MdOutlineMenuOpen />
     </button>
 
-    <div className={`absolute ${showNav ? 'top-0' : 'top-[-100vh]'} left-0 right-0 w-screen bg-[rgba(0,0,0,0.75)] h-screen transition-all duration-500`}>
+    <div className={`fixed z-50 ${showNav ? 'top-0' : 'top-[-100vh]'} left-0 right-0 w-screen bg-[rgba(0,0,0,0.75)] h-screen transition-all duration-500`}>
       <div className='w-full h-3/6 bg-white rounded-b-3xl'>
 
         <button onClick={() => {
