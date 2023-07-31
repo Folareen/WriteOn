@@ -1,17 +1,12 @@
 import React from 'react'
-import authImg from '../../assets/authImg.jpg'
+import authImg from '../../assets/journey-image.png'
 
-//   <div className='w-full h-screen flex items-center justify-center'>
-//     <form className='w-[300px] drop-shadow-md py-8 bg-gray-50 px-4' onSubmit={handleSubmit}>
-//       <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} name="" id="" className='w-full my-4 border ' />
-//       <input type="password" name="" id="" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full my-4 border ' />
-//       <button onClick={handleSubmit} className=' w-full bg-indigo-300 text-white' >
-//         Signup
-//       </button>
-//     </form>
-//   </div>
+type Props = {
+    children: React.ReactNode
+    title: string
+}
 
-const AuthContainer = ({ children, title }) => {
+const AuthContainer = ({ children, title }: Props) => {
     return (
         <div className='flex flex-row h-screen w-full'>
 
@@ -31,7 +26,7 @@ const AuthContainer = ({ children, title }) => {
 
             </div>
 
-            <div className='w-1/2'>
+            <div className='hidden lg:block w-1/2 h-full'>
                 <img src={authImg} className='h-full w-full object-cover' />
             </div>
 
