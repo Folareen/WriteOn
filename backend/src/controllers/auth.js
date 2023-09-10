@@ -52,13 +52,19 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, username, password } = req.body;
 
-        if (!email || !password) {
-            return res.status(400).json({ message: `Email and password are required!` })
+        if ((!email && !username) || !password) {
+            return res.status(400).json({ message: `Email/username and password are required!` })
         }
 
-        const user = await User.findOne({ email }).select('+password')
+        let user = null
+
+        if(email){
+            user = await User.findOne({ email }).select('+password')
+        } else {
+            user = await User.findOne({ username }).select('+password')
+        }
 
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials!' });
