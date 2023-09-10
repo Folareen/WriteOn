@@ -5,9 +5,9 @@ const cloudinary = require('cloudinary')
 
 const signup = async (req, res) => {
     try {
-        const { username, firstName, lastName, email, password } = req.body;
+        const { username, fullName, email, password } = req.body;
 
-        if (!username || !firstName || !lastName || !email || !password) {
+        if (!username || !fullName || !email || !password) {
             return res.status(400).json({ message: `All fields are required!` })
         }
 
@@ -30,7 +30,7 @@ const signup = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await User.create({ username, firstName, lastName, email, password: hashedPassword });
+        const user = await User.create({ username, fullName, email, password: hashedPassword });
 
         if(avatar){
             user.avatar = avatar
@@ -38,7 +38,7 @@ const signup = async (req, res) => {
 
         await user.save()
 
-        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, firstName: user.firstName, lastName: user.lastName, avatar }, process.env.JWT_SECRET);
+        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, fullName: user.fullName, avatar }, process.env.JWT_SECRET);
 
         res.status(201).json({ message: 'Account created successfully', token });
 
@@ -70,7 +70,7 @@ const login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials!' });
         }
 
-        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET);
+        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username, fullName: user.fullName, avatar: user.avatar}, process.env.JWT_SECRET);
 
         res.status(200).json({ message: 'Login successful', token });
 
