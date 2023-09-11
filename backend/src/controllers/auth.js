@@ -52,18 +52,19 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { email, username, password } = req.body;
+        const { emailOrUsername, password } = req.body;
 
-        if ((!email && !username) || !password) {
+        if (!emailOrUsername || !password) {
             return res.status(400).json({ message: `Email/username and password are required!` })
         }
 
         let user = null
 
-        if(email){
-            user = await User.findOne({ email }).select('+password')
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(emailOrUsername)) {
+            user = await User.findOne({ email: emailOrUsername }).select('+password')
         } else {
-            user = await User.findOne({ username }).select('+password')
+            user = await User.findOne({ username: emailOrUsername }).select('+password')
         }
 
         if (!user) {
