@@ -4,6 +4,8 @@ import journeyImg from '../../assets/journey-image.png'
 type Props = {
     children: React.ReactNode,
 }
+console.log('hi')
+
 
 const AuthContainer = ({ children }: Props) => {
     return (
