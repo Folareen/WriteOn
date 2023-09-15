@@ -21,8 +21,8 @@ const verifyToken =  (req, res, next) => {
 
         next();
     }catch(err){
-        console.log(err.message)
-        res.status(500).json({message: 'Unable to verify token'})
+        console.log(err)
+        res.sendStatus(500)
     }
 }
 

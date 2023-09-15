@@ -38,8 +38,8 @@ const editProfile = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(error)
+        res.sendStatus(500)
     }
 }
 
@@ -66,8 +66,8 @@ const getUser = async (req, res) => {
         })
 
     } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(err)
+        res.sendStatus(500)
     }
 
 }

@@ -44,7 +44,7 @@ const signup = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'Unable to signup' });
+        res.sendStatus(500)
     }
 
 }
@@ -83,7 +83,7 @@ const login = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'Unable to login' });
+        res.sendStatus(500)
     }
 }
 

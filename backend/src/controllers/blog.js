@@ -19,8 +19,8 @@ const getBlogs = async (req, res) => {
 
         res.status(200).json({ blogs, page, count, pages  })
     } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(err)
+        res.sendStatus(500)
     }
 }
 
@@ -70,8 +70,8 @@ const createBlog = async (req, res) => {
 
         res.status(201).json({ blog, message: "Blog created successfully" })
     } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(err)
+        res.sendStatus(500)
     }
 
 }
@@ -114,8 +114,8 @@ const editBlog = async (req, res) => {
 
         res.status(200).json({ message: 'Blog updated successfully', blog })
     } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(err)
+        res.sendStatus(500)
     }
 }
 
@@ -132,8 +132,8 @@ const deleteBlog = async (req, res) => {
 
         res.status(200).json({ message: 'Blog deleted successfully' })
     } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(err)
+        res.sendStatus(500)
     }
 }
 
@@ -158,8 +158,8 @@ const likeBlog = async (req, res) => {
 
         res.status(200).json({ likes: blog.likes, likesCount: blog.likes.length, message: 'Blog liked successfully' })
     } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(err)
+        res.sendStatus(500)
     }
 }
 
@@ -185,8 +185,8 @@ const unlikeBlog = async (req, res) => {
 
         res.status(200).json({ likes: blog.likes, likesCount: blog.likes.length, message: 'Blog unliked successfully' })
     } catch (err) {
-        console.log(err.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(err)
+        res.sendStatus(500)
     }
 }
 
@@ -224,8 +224,8 @@ const addComment = async (req, res) => {
         res.status(200).json({ message: 'Comment added' })
 
     } catch (error) {
-        console.log(error.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(error)
+        res.sendStatus(500)
     }
 }
 
@@ -243,8 +243,8 @@ const getBlog = async (req, res) => {
 
         res.status(200).json({ blog })
     } catch (error) {
-        console.log(error.message)
-        res.status(500).json({ message: 'Something went wrong' })
+        console.log(error)
+        res.sendStatus(500)
     }
 }
 
