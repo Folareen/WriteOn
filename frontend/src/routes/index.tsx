@@ -5,22 +5,16 @@ import {
 import PrivateRoutes from "./PrivateRoutes";
 import PublicRoutes from './PublicRoutes';
 import useAuthStore from "../stores/useAuthStore";
-import jwtDecode from "jwt-decode";
-import { setAxiosToken } from "../api/axios";
 
 const Routes = () => {
-  const { user, authenticate } = useAuthStore()
+  const { user, authenticate, logout } = useAuthStore()
 
   useLayoutEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
-      const user = jwtDecode(token)
-      if (user) {
-        setAxiosToken(token)
-        authenticate(user)
-      }
+      authenticate(token)
     } else {
-      authenticate(null)
+      logout()
     }
   }, [])
 
