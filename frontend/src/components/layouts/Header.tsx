@@ -10,9 +10,11 @@ import { AiOutlineLogin } from 'react-icons/ai'
 import { IoMdPersonAdd } from 'react-icons/io'
 import getUrlFromTitle from '../../utils/getUrlFromTitle'
 import Container from '../Container'
+import useAuthStore from '../../stores/useAuthStore'
 
 const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }) => {
   const [showNav, setShowNav] = useState(false)
+  const { logout } = useAuthStore()
 
   return <div className='flex lg:hidden p-6 items-center justify-center relative'>
     <Logo dark={true} />
@@ -44,17 +46,19 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
                 </Link>
               }
 
-              if (item == 'Sign up') {
+              if (item == 'Signup') {
                 return <Link to={getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 items-center text-[#503668] ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`}>
                   <IoMdPersonAdd />
                   <p className=' text-base'>
-                    {item}
+                    Sign up
                   </p>
                 </Link>
               }
 
               if (item == 'Logout') {
-                return <button className='flex flex-row items-center gap-2 p-2 text-[#C52727]'>
+                return <button className='flex flex-row items-center gap-2 p-2 text-[#C52727]' onClick={() => {
+                  logout()
+                }}>
                   <RiLogoutCircleLine />
                   <span>Logout</span>
                 </button>
@@ -94,6 +98,8 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
 }
 
 const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string }) => {
+  const { logout } = useAuthStore()
+
   return <Container className='hidden lg:flex bg-[#26262F] p-[27px] justify-between'>
     <Logo dark={false} />
     <div className='flex flex-row gap-5 items-center font-medium'>
@@ -107,7 +113,7 @@ const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string 
           }
 
           if (item == 'Sign up') {
-            return <Link to={'/sign-up'} className='px-3 rounded-md bg-[#B09EC0] text-white py-1.5'>
+            return <Link to={'/signup'} className='px-3 rounded-md bg-[#B09EC0] text-white py-1.5'>
               Sign up
             </Link>
           }
@@ -119,7 +125,10 @@ const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string 
           }
 
           if (item == 'Logout') {
-            return <button className='px-3 rounded-md bg-[#C52727] text-white py-1.5'>
+            return <button className='px-3 rounded-md bg-[#C52727] text-white py-1.5' onClick={() => {
+              // logout()
+              logout()
+            }}>
               Logout
             </button>
           }
@@ -136,11 +145,12 @@ const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string 
 const Header = () => {
 
   const { pathname } = useLocation()
+  const { user } = useAuthStore()
 
-  const links = false ? [
+  const links = user ? [
     'Home', 'My Portfolio', 'Blog', 'FAQs', 'Create Blog', 'Logout'
   ] : [
-    'Home', 'Blog', 'FAQs', 'Login', 'Sign up'
+    'Home', 'Blog', 'FAQs', 'Login', 'Signup'
   ]
 
   return (
