@@ -7,6 +7,7 @@ import Signup from '../pages/auth/Signup'
 import NotFound from '../pages/NotFound'
 import Article from '../pages/public/Article'
 import Profile from '../pages/public/Profile'
+import ResetPassword from '../pages/auth/ResetPassword'
 
 const PublicRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const PublicRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/:username" element={<Profile />} />
             <Route path="/:profileId/:articleId" element={<Article />} />
             <Route path="*" element={<NotFound />} />
