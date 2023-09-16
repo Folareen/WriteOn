@@ -480,6 +480,53 @@ const requestPasswordReset = async (req, res) => {
 }
 
 
+const resetPassword = async (req, res) => {
+  try {
+    const { newPassword, passwordResetToken, email } = req.body
+    if (!passwordResetToken) {
+      return res.status(400).json({ message: 'Password reset token is required' })
+    }
+    if (!newPassword) {
+      return res.status(400).json({ message: 'New password is required' })
+    }
+    if (newPassword.length < 6) {
+      return res.status(400).json({ message: 'New password should be atleast 6 characters long' })
+    }
+    if(!(email?.trim())){
+      return res.status(400).json({message: 'Email is required'})
+    }
+
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' })
+    }
+
+    const token = await Token.findOne({token: passwordResetToken, user: user._id})
+
+    if (!token){
+      return res.status(400).json({ message: 'Invalid password reset token' })
+    }
+
+    if (token.used) {
+      return res.status(400).json({ message: 'Used token' })
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10)
+    token.used = true
+    
+    await user.save()
+    await token.save()
+
+    res.status(200).json({ message: 'Password reset successful' })
+
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+}
+
+
 module.exports = {
     login,
     signup,
