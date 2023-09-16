@@ -4,13 +4,13 @@ import Logo from '../Logo'
 import { RiArticleFill, RiCloseCircleLine, RiFileEditFill, RiLogoutCircleLine } from 'react-icons/ri'
 import { Link, useLocation } from 'react-router-dom'
 import { GoHome } from 'react-icons/go'
-import { FcFaq } from 'react-icons/fc'
 import { LuMessagesSquare } from 'react-icons/lu'
 import { AiOutlineLogin } from 'react-icons/ai'
 import { IoMdPersonAdd } from 'react-icons/io'
 import getUrlFromTitle from '../../utils/getUrlFromTitle'
 import Container from '../Container'
 import useAuthStore from '../../stores/useAuthStore'
+import { toast } from 'react-toastify'
 
 const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }) => {
   const [showNav, setShowNav] = useState(false)
@@ -58,6 +58,7 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
               if (item == 'Logout') {
                 return <button className='flex flex-row items-center gap-2 p-2 text-[#C52727]' onClick={() => {
                   logout()
+                  toast.info('Logout successful')
                 }}>
                   <RiLogoutCircleLine />
                   <span>Logout</span>
@@ -126,8 +127,8 @@ const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string 
 
           if (item == 'Logout') {
             return <button className='px-3 rounded-md bg-[#C52727] text-white py-1.5' onClick={() => {
-              // logout()
               logout()
+              toast.info('Logout successful!')
             }}>
               Logout
             </button>
