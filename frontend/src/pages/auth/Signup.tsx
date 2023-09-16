@@ -92,7 +92,7 @@ const Signup = () => {
 
         <div className='mb-4 md:mb-5'>
           <label htmlFor="profile-picture" className='text-base md:text-xl block mb-1 font-semibold '>
-            Profile Picture
+            Profile Picture <span className='text-xs md:text-base'>(optional)</span>
           </label>
           <input type='file' onChange={(e) => {
             setAvatar(e.target.files && e.target.files[0])
