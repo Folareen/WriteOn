@@ -8,7 +8,7 @@ type Props = {
 
 const AuthContainer = ({ children, title }: Props) => {
     return (
-        <div className={`bg-[url('../../src/assets/journey-image.png')] bg-center md:bg-none md:!bg-[#D9D9D9] w-full  object-cover flex flex-row`}>
+        <div style={{ backgroundImage: `url(${journeyImg})` }} className={`bg-center md:bg-none md:!bg-[#D9D9D9] w-full  object-cover flex flex-row`}>
             <div className='w-1/2 hidden md:block fixed left-0 right-0 bottom-0 top-0'>
                 <img src={journeyImg} className='w-full h-full object-cover bg-center' />
             </div>
