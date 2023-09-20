@@ -17,7 +17,7 @@ const PublicRoutes = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/:username" element={<Profile />} />
+            {/* <Route path="/:username" element={<Profile />} /> */}
             <Route path="/:profileId/:articleId" element={<Article />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
