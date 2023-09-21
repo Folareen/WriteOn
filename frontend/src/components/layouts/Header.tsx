@@ -155,7 +155,7 @@ const Header = () => {
   ]
 
   return (
-    <header>
+    <header className='fixed w-full bg-white z-50 shadow-md'>
       <MobileHeader links={links} pathname={pathname} />
       <DesktopHeader links={links} pathname={pathname} />
     </header>
