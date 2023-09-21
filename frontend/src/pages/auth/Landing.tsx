@@ -14,8 +14,6 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io'
 import millionsPeopleImg from '../../assets/millions-people.png'
 import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from 'react-icons/bi'
 import journeyImg from '../../assets/journey-image.png'
-import Footer from '../../components/layouts/Footer'
-
 const Landing = () => {
 
   const [activeFAQ, setActiveFAQ] = useState('')
@@ -33,7 +31,6 @@ const Landing = () => {
 
   return (
     <div className=''>
-      <Header />
 
       <Container className='py-7 lg:py-20 bg-cover bg-center text-white flex flex-col items-center' style={{ backgroundImage: `url(${clockImage})` }}>
         <p className='text-lg lg:text-2xl font-bold mb-1.5 lg:mb-2.5'>
@@ -236,17 +233,6 @@ const Landing = () => {
           </div>
         </div>
       </Container>
-
-      <Container style={{ backgroundImage: `url(${journeyImg})` }} className='bg-center bg-cover py-10 lg:py-20 flex flex-col items-center'>
-        <p className='text-white text-base lg:text-xl mb-3 lg:mb-6 font-bold'>
-          Join millions of users on this beautiful Journey
-        </p>
-        <Link to={'/sign-up'} className='text-white text-[14px] lg:text-base py-4 rounded-md px-24 bg-[#9333EA] font-semibold'>
-          Get Started
-        </Link>
-      </Container>
-
-      <Footer />
 
     </div>
   )
