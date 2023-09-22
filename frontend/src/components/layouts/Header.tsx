@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdOutlineMenuOpen, MdOutlineWorkOutline } from 'react-icons/md'
 import Logo from '../Logo'
 import { RiArticleFill, RiCloseCircleLine, RiFileEditFill, RiLogoutCircleLine } from 'react-icons/ri'
@@ -15,6 +15,13 @@ import { toast } from 'react-toastify'
 const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }) => {
   const [showNav, setShowNav] = useState(false)
   const { logout } = useAuthStore()
+
+  const pathObj = useLocation()
+
+  useEffect(() => {
+    setShowNav(false)
+  }, [pathObj.pathname])
+
 
   return <div className='flex lg:hidden p-6 items-center justify-center relative'>
     <Logo dark={true} />
