@@ -19,7 +19,7 @@ const PublicRoutes = () => {
                 !(pathname == '/login' || pathname == '/signup' || pathname == '/forgot-password' || pathname == '/reset-password') &&
                 <Header />
             }
-            <div className='mt-[72px] md:mt-[90px]'>
+            <div className={!(pathname == '/login' || pathname == '/signup' || pathname == '/forgot-password' || pathname == '/reset-password') ? 'mt-[72px] lg:mt-[90px]' : ''}>
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/login" element={<Login />} />
