@@ -65,7 +65,7 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
                 </button>
               }
 
-              return <Link to={getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 border-[#1E1E21] border-solid border-0 border-b-[1px] items-center ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`}>
+              return <Link to={item == 'Home' ? '/' : getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 border-[#1E1E21] border-solid border-0 border-b-[1px] items-center ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`}>
                 {
                   item == 'Home' ?
                     <GoHome />
@@ -134,7 +134,7 @@ const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string 
             </button>
           }
 
-          return <Link to={getUrlFromTitle(item)} className={`text-white ${pathname == getUrlFromTitle(item) || (pathname == '/' && item == 'Home') ? 'font-bold underline underline-offset-1' : ''} hover:underline`}>
+          return <Link to={item == 'Home' ? '/' : getUrlFromTitle(item)} className={`text-white ${pathname == getUrlFromTitle(item) || (pathname == '/' && item == 'Home') ? 'font-bold underline underline-offset-1' : ''} hover:underline`}>
             {item}
           </Link>
         })
