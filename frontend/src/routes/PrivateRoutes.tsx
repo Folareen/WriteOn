@@ -5,6 +5,7 @@ import Landing from '../pages/auth/Landing'
 import Blog from '../pages/public/Blog'
 import Footer from '../components/layouts/Footer'
 import Header from '../components/layouts/Header'
+import BlogDetails from '../pages/public/BlogDetails'
 
 const PrivateRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const PrivateRoutes = () => {
           <Route path="/login" element={<Navigate to={'/'} />} />
           <Route path="/signup" element={<Navigate to={'/'} />} />
           <Route path='/blog' element={<Blog />} />
+          <Route path='/blog/:id' element={<BlogDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
