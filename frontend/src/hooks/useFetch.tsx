@@ -3,7 +3,7 @@ import Axios from '../api/axios'
 
 const useFetch = (url: string, dependencies: any[]) => {
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState(null)
+    const [data, setData] = useState<any>(null)
     const [error, setError] = useState('')
 
     useEffect(() => {
