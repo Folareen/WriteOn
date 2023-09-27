@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Axios from '../api/axios'
 
-const useFetch = ({ dependencies, url }: { dependencies: any, url: string }) => {
+const useFetch = (url: string, dependencies: any[]) => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
     const [error, setError] = useState('')
