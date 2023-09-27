@@ -15,7 +15,8 @@ const getBlogs = async (req, res) => {
 
         const blogs = await Blog.find(query).populate("author").skip((page - 1) * 10).limit(10)
 
-        const count = await Blog.countDocuments()
+        const queriedBlogs = Blog.find(query)
+        const count = await queriedBlogs.countDocuments()
         const pages = Math.ceil(count / 10)
 
         res.status(200).json({ blogs, page, count, pages  })
