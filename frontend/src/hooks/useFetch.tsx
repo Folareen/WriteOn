@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Axios from '../api/axios'
 
 const useFetch = (url: string, dependencies: any[]) => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [data, setData] = useState(null)
     const [error, setError] = useState('')
 
@@ -10,6 +10,7 @@ const useFetch = (url: string, dependencies: any[]) => {
         (
             async () => {
                 try {
+                    setError('')
                     const response = await Axios.get(url)
                     setData(response.data)
                 } catch (error: any) {
