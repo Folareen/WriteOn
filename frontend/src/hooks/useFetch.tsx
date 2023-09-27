@@ -11,6 +11,7 @@ const useFetch = (url: string, dependencies: any[]) => {
             async () => {
                 try {
                     setError('')
+                    setLoading(true)
                     const response = await Axios.get(url)
                     setData(response.data)
                 } catch (error: any) {
