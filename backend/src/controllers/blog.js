@@ -28,7 +28,7 @@ const getBlogs = async (req, res) => {
 const createBlog = async (req, res) => {
     try {
         const user = req.user
-        const { author, title, content, category } = req.body
+        const { author, title, content, category, published } = req.body
         if (!author) {
             return res.status(400).json({ message: 'Author is required' })
         }
@@ -69,7 +69,8 @@ const createBlog = async (req, res) => {
         const blog = await Blog.create({
             ...req.body,
             author: user._id, id: blogId,
-            coverImage
+            coverImage,
+            published: published ? true : false
         })
 
         res.status(201).json({ blog, message: "Blog created successfully" })
