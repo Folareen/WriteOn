@@ -1,0 +1,1 @@
+module.exports = ["news", "entertainment", "fashion", "health", "travel", "technology", "lifestyle", "food", "business", "politics"]

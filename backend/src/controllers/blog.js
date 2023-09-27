@@ -1,5 +1,6 @@
 const Blog = require("../models/Blog")
 const cloudinary = require('cloudinary')
+const blogCategories = require('../constants/blogCategories')
 
 const getBlogs = async (req, res) => {
     try {
@@ -42,6 +43,9 @@ const createBlog = async (req, res) => {
         }
         if (!category) {
             return res.status(400).json({ message: 'Category is required' })
+        }
+        if(!blogCategories.includes(category)){
+            return res.status(400).json({message: 'Invalid blog category'})
         }
 
         const blogId = title.toLowerCase().split(' ').join('-')
@@ -97,8 +101,12 @@ const editBlog = async (req, res) => {
             blog.description = description
         }
         if (category) {
+            if(!blogCategories.includes(category)){
+                return res.status(400).json({message: 'Invalid blog category'})
+            }
             blog.category = category
         }
+
         if (published != undefined || published != null) {
             blog.published = published
         }

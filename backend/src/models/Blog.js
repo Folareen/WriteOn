@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const blogCategories = require('../constants/blogCategories')
 
 const CommentSchema = new Schema({
     authorUsername: {
@@ -55,6 +56,8 @@ const BlogSchema = new Schema({
     },
     category: {
         type: String,
+        enum: blogCategories,
+        default: "other",
         required: true
     },
     published: {
