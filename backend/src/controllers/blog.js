@@ -1,4 +1,5 @@
 const Blog = require("../models/Blog")
+const User = require("../models/User")
 const cloudinary = require('cloudinary')
 const blogCategories = require('../constants/blogCategories')
 
@@ -241,8 +242,10 @@ const addComment = async (req, res) => {
 
 const getBlog = async (req, res) => {
     try {
-        const { id } = req.params
-        const blog = await Blog.findOne({ id })
+        const { blogId, username } = req.params
+        
+        const user = await User.findOne({username})
+        const blog = await Blog.findOne({ id : blogId, author: user._id })
 
         if (!blog) {
             return res.status(404).json({ message: 'Blog not found' })

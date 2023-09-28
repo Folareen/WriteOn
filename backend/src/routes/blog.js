@@ -10,6 +10,7 @@ router.use(verifyToken)
 router.route('/:id/like').patch(likeBlog)
 router.route('/:id/unlike').patch(unlikeBlog)
 router.route('/:id/comment').patch(addComment)
-router.route('/:id').patch(editBlog).delete(deleteBlog).get(getBlog)
+router.route('/:id').patch(editBlog).delete(deleteBlog)
+router.route('/:username/:blogId').get(getBlog)
 
 module.exports = router
