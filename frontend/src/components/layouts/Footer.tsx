@@ -24,7 +24,7 @@ const Footer = () => {
 
       <footer style={{ background: 'linear-gradient(219deg, #B91C7A 0%, rgba(57, 133, 150, 0.47) 52.60%, rgba(56, 82, 175, 0.00) 100%)' }}>
         <Container className='flex flex-col lg:flex-row-reverse py-7 lg:py-11' >
-          <div className='flex justify-evenly flex-1 !text-base lg:!text-xl items-start'>
+          <div className='flex justify-evenly flex-1 !text-base lg:!text-xl items-start mb-4 lg:m-0 max-w-[400px]'>
             <p className=' rounded-full bg-[#424242] text-[#E1BEE7] p-1.5'>
               <BiLogoFacebook />
             </p>
@@ -47,7 +47,7 @@ const Footer = () => {
               <div className='w-1/2'>
                 {
                   [
-                    'Blog', 'Create Blog', 'Contact'
+                    'Blog', 'Create Blog',
                   ].map((link) => (
                     <Link to={getUrlFromTitle(link)} className='my-1 lg:my-2 block'>
                       {link}
@@ -58,7 +58,7 @@ const Footer = () => {
               <div className='w-1/2'>
                 {
                   [
-                    'Login', 'Sign up', 'FAQs'
+                    'Login', 'Sign up',
                   ].map((link) => (
                     <Link to={getUrlFromTitle(link)} className='my-1 lg:my-2 block'>
                       {link}
@@ -69,12 +69,12 @@ const Footer = () => {
             </div>
           </div>
         </Container>
-        <div className='flex flex-row items-center gap-2 justify-center !text-[#424242]'>
-          <p>
-            Designed by <a href='https://twitter.com/otuyemis' className='underline underline-offset-1' target='blank'>Samuel Otuyemi</a>
+        <div className='flex flex-row items-center gap-2  !text-[#424242] px-4 pb-4 justify-between lg:justify-center'>
+          <p className='text-center'>
+            Designed by <a href='https://twitter.com/otuyemis' className='underline underline-offset-1' target='blank'>Samuel</a>
           </p>
           <GoDotFill />
-          <p>
+          <p className='text-center'>
             Developed by <a href='https://twitter.com/_folareen_' className='underline underline-offset-1' target='blank'>Folareen</a>
           </p>
         </div>

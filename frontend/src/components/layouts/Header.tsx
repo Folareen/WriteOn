@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { MdOutlineMenuOpen, MdOutlineWorkOutline } from 'react-icons/md'
-import Logo from '../Logo'
-import { RiArticleFill, RiCloseCircleLine, RiFileEditFill, RiLogoutCircleLine } from 'react-icons/ri'
-import { Link, useLocation } from 'react-router-dom'
-import { GoHome } from 'react-icons/go'
-import { LuMessagesSquare } from 'react-icons/lu'
+import { useEffect, useState } from 'react'
 import { AiOutlineLogin } from 'react-icons/ai'
+import { GoHome } from 'react-icons/go'
 import { IoMdPersonAdd } from 'react-icons/io'
+import { MdOutlineMenuOpen } from 'react-icons/md'
+import { RiArticleFill, RiCloseCircleLine, RiFileEditFill, RiLogoutCircleLine } from 'react-icons/ri'
+import { RxDashboard } from 'react-icons/rx'
+import { Link, useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import useAuthStore from '../../stores/useAuthStore'
 import getUrlFromTitle from '../../utils/getUrlFromTitle'
 import Container from '../Container'
-import useAuthStore from '../../stores/useAuthStore'
-import { toast } from 'react-toastify'
+import Logo from '../Logo'
 
 const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }) => {
   const [showNav, setShowNav] = useState(false)
@@ -77,8 +77,8 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
                   item == 'Home' ?
                     <GoHome />
                     :
-                    item == 'My Portfolio' ?
-                      <MdOutlineWorkOutline />
+                    item == 'Dashboard' ?
+                      <RxDashboard />
                       :
                       item == 'Blog' ?
                         <RiArticleFill />
@@ -86,10 +86,7 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
                         item == 'Create Blog' ?
                           <RiFileEditFill />
                           :
-                          item == 'FAQs' ?
-                            <LuMessagesSquare />
-                            :
-                            ''
+                          ''
 
                 }
                 <p className=' text-base'>
@@ -156,9 +153,9 @@ const Header = () => {
   const { user } = useAuthStore()
 
   const links = user ? [
-    'Home', 'My Portfolio', 'Blog', 'FAQs', 'Create Blog', 'Logout'
+    'Home', 'Dashboard', 'Blog', 'Create Blog', 'Logout'
   ] : [
-    'Home', 'Blog', 'FAQs', 'Login', 'Signup'
+    'Home', 'Blog', 'Login', 'Signup'
   ]
 
   return (
