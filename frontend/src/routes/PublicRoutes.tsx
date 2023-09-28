@@ -10,6 +10,7 @@ import Article from '../pages/public/Article'
 import Blog from '../pages/public/Blog'
 import Header from '../components/layouts/Header'
 import BlogDetails from '../pages/public/BlogDetails'
+import Profile from '../pages/public/Profile'
 
 const PublicRoutes = () => {
     const { pathname } = useLocation()
@@ -28,9 +29,8 @@ const PublicRoutes = () => {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path='/blog' element={<Blog />} />
-                    <Route path='/blog/:id' element={<BlogDetails />} />
-                    {/* <Route path="/:username" element={<Profile />} /> */}
-                    <Route path="/:profileId/:articleId" element={<Article />} />
+                    <Route path="/:username" element={<Profile />} />
+                    <Route path="/:username/:blogId" element={<BlogDetails />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
