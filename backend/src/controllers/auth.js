@@ -13,6 +13,9 @@ const signup = async (req, res) => {
         if (!username || !fullName || !email || !password) {
             return res.status(400).json({ message: `All fields are required!` })
         }
+        if(username.length > 10){
+          return res.status(400).json({message: "Username must not exceed 10 characters"})
+        }
 
         const userExists = await User.findOne({ email });
         if (userExists) {
