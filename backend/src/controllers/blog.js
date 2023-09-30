@@ -31,10 +31,8 @@ const getBlogs = async (req, res) => {
 const createBlog = async (req, res) => {
     try {
         const user = req.user
-        const { author, title, content, category, published } = req.body
-        if (!author) {
-            return res.status(400).json({ message: 'Author is required' })
-        }
+        const { title, content, category, published } = req.body
+
         if (!title) {
             return res.status(400).json({ message: 'Title is required' })
         }
