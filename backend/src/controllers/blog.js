@@ -2,6 +2,7 @@ const Blog = require("../models/Blog")
 const User = require("../models/User")
 const cloudinary = require('cloudinary')
 const blogCategories = require('../constants/blogCategories')
+const getUserFromToken = require("../utils/getUserFromToken")
 
 const getBlogs = async (req, res) => {
     try {
@@ -20,7 +21,7 @@ const getBlogs = async (req, res) => {
         const count = await queriedBlogs.countDocuments()
         const pages = Math.ceil(count / 10)
 
-        res.status(200).json({ blogs, page, count, pages  })
+        res.status(200).json({ blogs, page, count, pages })
     } catch (err) {
         console.log(err)
         res.sendStatus(500)
@@ -46,8 +47,8 @@ const createBlog = async (req, res) => {
         if (!category) {
             return res.status(400).json({ message: 'Category is required' })
         }
-        if(!blogCategories.includes(category)){
-            return res.status(400).json({message: 'Invalid blog category'})
+        if (!blogCategories.includes(category)) {
+            return res.status(400).json({ message: 'Invalid blog category' })
         }
 
         const blogId = title.toLowerCase().split(' ').join('-')
@@ -104,8 +105,8 @@ const editBlog = async (req, res) => {
             blog.description = description
         }
         if (category) {
-            if(!blogCategories.includes(category)){
-                return res.status(400).json({message: 'Invalid blog category'})
+            if (!blogCategories.includes(category)) {
+                return res.status(400).json({ message: 'Invalid blog category' })
             }
             blog.category = category
         }
@@ -243,12 +244,25 @@ const addComment = async (req, res) => {
 const getBlog = async (req, res) => {
     try {
         const { blogId, username } = req.params
-        
-        const user = await User.findOne({username})
-        const blog = await Blog.findOne({ id : blogId, author: user._id })
+
+        const user = await User.findOne({ username })
+        if (!user) return res.status(404).json({ message: 'Author not found' })
+
+        const blog = await Blog.findOne({ id: blogId, author: user._id, published: true })
 
         if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' })
+            if (!req.headers.authorization) return res.status(404).json({ message: 'Blog not found' })
+
+            const currUser = getUserFromToken(req)
+            if (!currUser) return res.status(404).json({ message: 'Blog not found' })
+
+            const unPublishedBlog = await Blog.findOne({ id: blogId, author: currUser._id, published: false })
+
+            if (!unPublishedBlog) {
+                return res.status(404).json({ message: 'Blog not found' })
+            } else {
+                return res.status(200).json({ blog: unPublishedBlog })
+            }
         }
 
         blog.viewCount = blog.viewCount + 1
