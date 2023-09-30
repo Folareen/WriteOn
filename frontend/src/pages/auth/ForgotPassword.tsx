@@ -4,6 +4,7 @@ import Axios from '../../api/axios'
 import { toast } from 'react-toastify'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
+import { forgotPassword } from '../../services/auth'
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('')
@@ -15,8 +16,7 @@ const ForgotPassword = () => {
     try {
       e.preventDefault()
       setSubmitting(true)
-      await Axios.post('/forgot-password', { email })
-      toast.success('Password reset token sent to your email!')
+      await forgotPassword(email)
       navigate('/reset-password')
     } catch (error: any) {
       toast.error(error?.message || error)

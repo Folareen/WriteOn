@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import useAuthStore from '../../stores/useAuthStore'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
+import { resetPassword } from '../../services/auth'
 
 const ResetPassword = () => {
     const [email, setEmail] = useState('')
@@ -20,10 +21,7 @@ const ResetPassword = () => {
         try {
             e.preventDefault()
             setSubmitting(true)
-            await Axios.post('/reset-password', {
-                email, newPassword, passwordResetToken
-            })
-            toast.success('Password changed!')
+            await resetPassword({ email, newPassword, passwordResetToken })
             navigate('/login')
         } catch (error: any) {
             toast.error(error?.message || error)

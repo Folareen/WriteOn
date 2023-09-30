@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import useAuthStore from '../../stores/useAuthStore'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { login, signup } from '../../services/auth'
 
 const Login = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('')
@@ -19,8 +20,7 @@ const Login = () => {
     try {
       e.preventDefault()
       setSubmitting(true)
-      const response = await Axios.post('/login', { emailOrUsername, password })
-      authenticate(response.data.token)
+      await login({ emailOrUsername, password }, authenticate)
     } catch (error: any) {
       toast.error(error?.message || error)
     } finally {
