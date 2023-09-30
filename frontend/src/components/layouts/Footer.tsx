@@ -49,7 +49,7 @@ const Footer = () => {
                   [
                     'Blog', 'Create Blog',
                   ].map((link) => (
-                    <Link to={getUrlFromTitle(link)} className='my-1 lg:my-2 block'>
+                    <Link to={getUrlFromTitle(link)} className='my-1 lg:my-2 block' key={link}>
                       {link}
                     </Link>
                   ))
@@ -60,7 +60,7 @@ const Footer = () => {
                   [
                     'Login', 'Sign up',
                   ].map((link) => (
-                    <Link to={getUrlFromTitle(link)} className='my-1 lg:my-2 block'>
+                    <Link to={getUrlFromTitle(link)} className='my-1 lg:my-2 block' key={link}>
                       {link}
                     </Link>
                   ))

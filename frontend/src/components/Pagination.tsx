@@ -26,7 +26,7 @@ const Pagination = ({ currPage, setNewPage, totalPages }: Props) => {
                     (num) => {
                         if (num == currPage) {
                             return (
-                                <button className='bg-[#9333EA] text-white rounded-lg h-[30px] w-[30px] flex items-center justify-center' onClick={() => setNewPage(num)}>
+                                <button className='bg-[#9333EA] text-white rounded-lg h-[30px] w-[30px] flex items-center justify-center' onClick={() => setNewPage(num)} key={num}>
                                     <span>
                                         {num}
                                     </span>
@@ -36,7 +36,7 @@ const Pagination = ({ currPage, setNewPage, totalPages }: Props) => {
                         }
 
                         return (
-                            <button className=' h-[30px] w-[30px] rounded-lg border flex items-center justify-center text-[#063A4F]' onClick={() => setNewPage(num)}>
+                            <button className=' h-[30px] w-[30px] rounded-lg border flex items-center justify-center text-[#063A4F]' onClick={() => setNewPage(num)} key={num}>
                                 <span>
                                     {num}
                                 </span>

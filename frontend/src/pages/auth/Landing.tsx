@@ -140,7 +140,7 @@ const Landing = () => {
                 desc: 'A platform that creates the missing bridge between readers and writers. '
               }
             ].map(({ title, icon, desc }) => (
-              <div className='bg-[#0C4A6E] p-6 rounded-md text-white flex-1 min-w-[300px] '>
+              <div className='bg-[#0C4A6E] p-6 rounded-md text-white flex-1 min-w-[300px] ' key={title}>
                 <img src={icon} className='h-12 w-12' />
                 <p className='font-bold text-base my-2'>
                   {title}
@@ -177,7 +177,7 @@ const Landing = () => {
                 content: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos eum in accusantium natus, suscipit doloremque quod ratione alias hic doloribus explicabo voluptatem, rem velit iusto eveniet nostrum maxime! Nesciunt, quis!"
               },
             ].map(({ title, content }) => (
-              <div className='text-white'>
+              <div className='text-white' key={title}>
                 <button onClick={() => {
                   if (activeFAQ == title) {
                     setActiveFAQ('')

@@ -45,7 +45,7 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
             links.map((item) => {
 
               if (item == 'Login') {
-                return <Link to={getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 border-[#1E1E21] border-solid border-0 border-b-[1px] items-center text-[#9333EA] ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`}>
+                return <Link to={getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 border-[#1E1E21] border-solid border-0 border-b-[1px] items-center text-[#9333EA] ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`} key={item}>
                   <AiOutlineLogin />
                   <p className=' text-base'>
                     {item}
@@ -54,7 +54,7 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
               }
 
               if (item == 'Signup') {
-                return <Link to={getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 items-center text-[#503668] ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`}>
+                return <Link to={getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 items-center text-[#503668] ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`} key={item}>
                   <IoMdPersonAdd />
                   <p className=' text-base'>
                     Sign up
@@ -66,13 +66,13 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
                 return <button className='flex flex-row items-center gap-2 p-2 text-[#C52727]' onClick={() => {
                   logout()
                   toast.info('Logout successful')
-                }}>
+                }} key={item}>
                   <RiLogoutCircleLine />
                   <span>Logout</span>
                 </button>
               }
 
-              return <Link to={item == 'Home' ? '/' : getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 border-[#1E1E21] border-solid border-0 border-b-[1px] items-center ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`}>
+              return <Link to={item == 'Home' ? '/' : getUrlFromTitle(item)} className={`flex flex-row gap-2 p-2 border-[#1E1E21] border-solid border-0 border-b-[1px] items-center ${pathname == getUrlFromTitle(item) ? 'bg-gray-200' : 'bg-white'}`} key={item}>
                 {
                   item == 'Home' ?
                     <GoHome />
@@ -112,19 +112,19 @@ const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string 
         links.map((item) => {
 
           if (item == 'Login') {
-            return <Link to={'/login'} className='px-3 rounded-md bg-[#9333EA] text-white py-1.5'>
+            return <Link to={'/login'} className='px-3 rounded-md bg-[#9333EA] text-white py-1.5' key={item}>
               Login
             </Link>
           }
 
           if (item == 'Sign up') {
-            return <Link to={'/signup'} className='px-3 rounded-md bg-[#B09EC0] text-white py-1.5'>
+            return <Link to={'/signup'} className='px-3 rounded-md bg-[#B09EC0] text-white py-1.5' key={item}>
               Sign up
             </Link>
           }
 
           if (item == 'Create Blog') {
-            return <Link to={'/create-blog'} className='px-3 rounded-md bg-[#9333EA] text-white py-1.5'>
+            return <Link to={'/create-blog'} className='px-3 rounded-md bg-[#9333EA] text-white py-1.5' key={item}>
               Create Blog
             </Link>
           }
@@ -133,12 +133,12 @@ const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string 
             return <button className='px-3 rounded-md bg-[#C52727] text-white py-1.5' onClick={() => {
               logout()
               toast.info('Logout successful!')
-            }}>
+            }} key={item}>
               Logout
             </button>
           }
 
-          return <Link to={item == 'Home' ? '/' : getUrlFromTitle(item)} className={`text-white ${pathname == getUrlFromTitle(item) || (pathname == '/' && item == 'Home') ? 'font-bold underline underline-offset-1' : ''} hover:underline`}>
+          return <Link to={item == 'Home' ? '/' : getUrlFromTitle(item)} className={`text-white ${pathname == getUrlFromTitle(item) || (pathname == '/' && item == 'Home') ? 'font-bold underline underline-offset-1' : ''} hover:underline`} key={item}>
             {item}
           </Link>
         })
