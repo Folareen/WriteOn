@@ -12,6 +12,10 @@ type Props = {
 }
 
 const BlogCard = ({ id, coverImage, title, content, date, authorUsername, authorAvatar }: Props) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html')
+    const parsedContent = doc.body.textContent || "";
+
     return <div className="shadow-lg hover:shadow-2xl bg-white p-2.5 rounded-[10px] flex flex-col gap-y-1 lg:gap-y-2 max-w-[600px]">
         <Link to={`/${authorUsername}/${id} `}
             className="flex flex-col gap-y-1 lg:gap-y-2"
@@ -23,7 +27,7 @@ const BlogCard = ({ id, coverImage, title, content, date, authorUsername, author
                 {title}
             </h2>
             <p className="text-xs lg:text-base">
-                {content.substring(0, 100)}{content.length > 100 && '...'}
+                {parsedContent.substring(0, 100)}{parsedContent.length > 100 && '...'}
             </p>
             <p className="text-[8px] lg:text-xs mt-0.5 lg:mt-1 capitalize">
                 {getDateAndTime(date)}
