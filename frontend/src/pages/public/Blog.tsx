@@ -83,9 +83,9 @@ const Blog = () => {
                             </div>
                             :
                             error ?
-                                <div>
-                                    error
-                                </div>
+                                <p className='text-red-600 font-medium text-center text-base lg:text-xl p-1 lg:p-2.5'>
+                                    {error}
+                                </p>
                                 :
                                 data?.blogs.length > 0 ?
                                     <div className='gap-3 md:gap-4 lg:gap-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
