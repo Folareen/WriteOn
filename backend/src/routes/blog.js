@@ -8,9 +8,9 @@ router.post('/', verifyToken, createBlog)
 router.route('/').get(getBlogs)
 router.route('/:username/:blogId').get(getBlog)
 router.use(verifyToken)
-router.route('/:id/like').patch(likeBlog)
-router.route('/:id/unlike').patch(unlikeBlog)
-router.route('/:id/comment').patch(addComment)
+router.route('/:username/:blogId/like').patch(likeBlog)
+router.route('/:username/:blogId/unlike').patch(unlikeBlog)
+router.route('/:username/:blogId/comment').patch(addComment)
 router.route('/:id').patch(editBlog).delete(deleteBlog)
 
 module.exports = router
