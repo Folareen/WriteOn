@@ -7,6 +7,8 @@ import useFetch from '../../hooks/useFetch'
 import blogCategories from '../../constants/blogCategories'
 import { AiOutlineSearch } from 'react-icons/ai'
 import Pagination from '../../components/Pagination'
+import Error from '../../components/Error'
+import Skeleton from '../../components/Skeleton'
 
 const Blog = () => {
     const [category, setCategory] = useState('')
@@ -77,15 +79,13 @@ const Blog = () => {
                             <div className='gap-3 md:gap-4 lg:gap-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
                                 {
                                     Array.from(Array(10).keys()).map(() => (
-                                        <div className="h-[35vh] lg:h-[40vh] bg-slate-500 rounded-[10px] animate-pulse"></div>
+                                        <Skeleton className='h-[35vh] lg:h-[40vh]' />
                                     ))
                                 }
                             </div>
                             :
                             error ?
-                                <p className='text-red-600 font-medium text-center text-base lg:text-xl p-1 lg:p-2.5'>
-                                    {error}
-                                </p>
+                                <Error message={error} />
                                 :
                                 data?.blogs.length > 0 ?
                                     <div className='gap-3 md:gap-4 lg:gap-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
