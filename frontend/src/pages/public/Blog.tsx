@@ -21,7 +21,7 @@ const Blog = () => {
 
     useEffect(() => {
         window.scrollTo(0, window.innerHeight / 2)
-    }, [data])
+    }, [loading])
 
     return (
         <div>
@@ -39,6 +39,7 @@ const Blog = () => {
 
                 <div className='flex flex-row items-center py-4 lg:py-10 gap-2.5 lg:gap-5 overflow-x-auto'>
                     <button onClick={() => {
+                        setPage(1)
                         setCategory('')
                         if (searchRef.current) {
                             searchRef.current.value = ''
@@ -50,6 +51,7 @@ const Blog = () => {
                     {
                         blogCategories.map((cgy) => (
                             <button onClick={() => {
+                                setPage(1)
                                 setCategory(cgy)
                                 if (searchRef.current) {
                                     searchRef.current.value = ''
@@ -65,6 +67,7 @@ const Blog = () => {
                 <div className='flex border-solid border-black border-[1px] mb-3 lg:mb-6 rounded-lg'>
                     <input type='search' ref={searchRef} className='flex-1 bg-transparent p-2 lg:p-4 outline-none border-solid border-[0] border-black border-r-[0.4px]' placeholder='Search your keywords' />
                     <button onClick={() => {
+                        setPage(1)
                         if (searchRef?.current) {
                             setSearchTerm(searchRef.current.value)
                         }
