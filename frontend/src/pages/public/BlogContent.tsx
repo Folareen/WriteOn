@@ -201,7 +201,7 @@ const BlogContent = () => {
                                             :
                                             refetchedBlog.data?.blog?.comments?.length > 0 ?
                                                 <div className="border-solid border-0 border-t-2 py-1 lg:py-2 max-w-5xl mx-auto w-[80%]">
-                                                    <h3 className="text-xs lg:text-base mt-0.5 lg:mt-1 font-semibold">
+                                                    <h3 className="text-[14px] lg:text-base mt-0.5 lg:mt-1 font-semibold">
                                                         Comments
                                                     </h3>
                                                     {
