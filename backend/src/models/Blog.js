@@ -6,11 +6,7 @@ const CommentSchema = new Schema({
         type: String,
         required: true
     },
-    authorFirstname: {
-        type: String,
-        required: true
-    },
-    authorLastname: {
+    authorFullName: {
         type: String,
         required: true
     },
