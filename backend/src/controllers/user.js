@@ -4,19 +4,16 @@ const cloudinary = require('cloudinary')
 
 const editProfile = async (req, res) => {
     try {
-        const { username, firstName, lastName, email } = req.body;
-        if (!username && !firstName && !lastName && !email) {
+        const { username, fullName, email } = req.body;
+        if (!username && !fullName && !email) {
             return res.sendStatus(400)
         }
         const user = await User.findOne({ _id: req.user._id });
         if (username) {
             user.username = username
         }
-        if (firstName) {
-            user.firstName = firstName
-        }
-        if (lastName) {
-            user.lastName = lastName
+        if (fullName) {
+            user.fullName = fullName
         }
         if (email) {
             user.email = email
@@ -31,8 +28,7 @@ const editProfile = async (req, res) => {
             user: {
                 _id: user._id,
                 username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                fullName: user.fullName,
                 email: user.email,
             }, message: 'Profile updated successfully.'
         })
@@ -58,8 +54,7 @@ const getUser = async (req, res) => {
             user: {
                 _id: user._id,
                 username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
+                fullName: user.fullName,
                 email: user.email,
             },
             blogs
