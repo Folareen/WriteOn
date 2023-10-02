@@ -20,6 +20,7 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
 
   useEffect(() => {
     setShowNav(false)
+    window.scrollTo(0, 0)
   }, [pathObj.pathname])
 
 
@@ -104,6 +105,12 @@ const MobileHeader = ({ links, pathname }: { links: string[], pathname: string }
 
 const DesktopHeader = ({ links, pathname }: { links: string[], pathname: string }) => {
   const { logout } = useAuthStore()
+
+  const pathObj = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathObj.pathname])
 
   return <Container className='hidden lg:flex bg-[#26262F] p-[27px] justify-between'>
     <Logo dark={false} />
