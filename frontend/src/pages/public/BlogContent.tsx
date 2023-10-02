@@ -111,7 +111,7 @@ const BlogContent = () => {
                                     <div dangerouslySetInnerHTML={{ __html: data?.blog?.content }} >
                                     </div>
 
-                                    <hr className="my-2 lg:my-4" />
+                                    <div className="my-2 lg:my-4 border-solid border-0 border-t-2 " />
 
                                     {
                                         data?.blog?.published ?
@@ -195,7 +195,7 @@ const BlogContent = () => {
                                             <Error message={error} />
                                             :
                                             refetchedBlog.data?.blog?.comments?.length > 0 ?
-                                                <div className="border-solid border-0 border-t-2 py-1 lg:py-2 max-w-5xl mx-auto w-[90%]">
+                                                <div className="border-solid border-0 border-t-2 py-1 lg:py-2 max-w-5xl mx-auto w-[80%]">
                                                     {
                                                         refetchedBlog?.data?.blog?.comments.map((comment: any) => (
                                                             <div className="my-2 lg:my-4 bg-gray-50 rounded-[10px] ">
