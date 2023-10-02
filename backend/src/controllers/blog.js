@@ -188,8 +188,7 @@ const unlikeBlog = async (req, res) => {
             return res.status(400).json({ message: 'Blog not liked' })
         }
 
-
-        blog.likes = likes.filter((like) => like != user._id)
+        blog.likes = likes.filter((like) => String(like) != String(user._id))
 
         await blog.save()
 
