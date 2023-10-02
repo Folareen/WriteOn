@@ -124,6 +124,7 @@ const BlogContent = () => {
                                                         {data?.blog?.viewCount} Views
                                                     </p>
                                                     <button onClick={() => {
+                                                        if (!user) return
                                                         if (liked) {
                                                             setLiked(false)
                                                             unlikeBlog(username!, blogId!)
@@ -133,21 +134,25 @@ const BlogContent = () => {
                                                         }
                                                     }} className="text-xl lg:text-4xl cursor-pointer flex justify-center items-end space-x-1 lg:space-x-2">
                                                         {
-                                                            liked
-                                                                ?
-                                                                <AiFillLike />
-                                                                :
-                                                                <AiOutlineLike />
+                                                            user && <>
+                                                                {
+                                                                    liked
+                                                                        ?
+                                                                        <AiFillLike />
+                                                                        :
+                                                                        <AiOutlineLike />
+                                                                }
+                                                            </>
                                                         }
                                                         {
                                                             liked ?
                                                                 <span className='text-xs lg:text-lg'>
-                                                                    {data?.blog?.likes?.length || 1}
+                                                                    {data?.blog?.likes?.length || 1} {!user && 'likes'}
                                                                 </span>
                                                                 :
                                                                 data?.blog?.likes?.length > 1 ?
                                                                     <span className='text-xs lg:text-lg'>
-                                                                        {data?.blog?.likes?.length}
+                                                                        {data?.blog?.likes?.length} {!user && 'likes'}
                                                                     </span>
                                                                     :
                                                                     null
@@ -196,6 +201,9 @@ const BlogContent = () => {
                                             :
                                             refetchedBlog.data?.blog?.comments?.length > 0 ?
                                                 <div className="border-solid border-0 border-t-2 py-1 lg:py-2 max-w-5xl mx-auto w-[80%]">
+                                                    <h3 className="text-xs lg:text-base mt-0.5 lg:mt-1 font-semibold">
+                                                        Comments
+                                                    </h3>
                                                     {
                                                         refetchedBlog?.data?.blog?.comments.map((comment: any) => (
                                                             <div className="my-2 lg:my-4 bg-gray-50 rounded-[10px] ">
