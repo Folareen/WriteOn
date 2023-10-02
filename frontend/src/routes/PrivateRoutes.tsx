@@ -5,9 +5,10 @@ import Landing from '../pages/auth/Landing'
 import Blog from '../pages/public/Blog'
 import Footer from '../components/layouts/Footer'
 import Header from '../components/layouts/Header'
-import BlogDetails from '../pages/public/BlogDetails'
 import CreateBlog from '../pages/private/CreateBlog'
 import Profile from '../pages/public/Profile'
+import BlogContent from '../pages/public/BlogContent'
+import EditBlog from '../pages/private/EditBlog'
 
 const PrivateRoutes = () => {
   return (
@@ -22,7 +23,8 @@ const PrivateRoutes = () => {
           <Route path='/blog' element={<Blog />} />
           <Route path='/create-blog' element={<CreateBlog />} />
           <Route path="/:username" element={<Profile />} />
-          <Route path="/:username/:blogId" element={<BlogDetails />} />
+          <Route path="/:username/:blogId" element={<BlogContent />} />
+          <Route path="/:username/:blogId/edit" element={<EditBlog />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

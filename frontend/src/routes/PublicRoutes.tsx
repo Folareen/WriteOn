@@ -9,8 +9,8 @@ import Signup from '../pages/auth/Signup'
 import Article from '../pages/public/Article'
 import Blog from '../pages/public/Blog'
 import Header from '../components/layouts/Header'
-import BlogDetails from '../pages/public/BlogDetails'
 import Profile from '../pages/public/Profile'
+import BlogContent from '../pages/public/BlogContent'
 
 const PublicRoutes = () => {
     const { pathname } = useLocation()
@@ -30,7 +30,7 @@ const PublicRoutes = () => {
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path='/blog' element={<Blog />} />
                     <Route path="/:username" element={<Profile />} />
-                    <Route path="/:username/:blogId" element={<BlogDetails />} />
+                    <Route path="/:username/:blogId" element={<BlogContent />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
