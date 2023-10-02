@@ -149,12 +149,12 @@ const deleteBlog = async (req, res) => {
 
 const likeBlog = async (req, res) => {
     try {
-        const user = req.user
-        const { id } = req.params
-        const blog = await Blog.findOne({ id, author: user._id })
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' })
-        }
+        const { blogId, username } = req.params
+
+        const user = await User.findOne({ username })
+        if (!user) return res.status(404).json({ message: 'Author not found' })
+
+        const blog = await Blog.findOne({ id: blogId, author: user._id, published: true })
 
         const likes = blog.likes
 
@@ -175,12 +175,12 @@ const likeBlog = async (req, res) => {
 
 const unlikeBlog = async (req, res) => {
     try {
-        const user = req.user
-        const { id } = req.params
-        const blog = await Blog.findOne({ id, author: user._id })
-        if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' })
-        }
+        const { blogId, username } = req.params
+
+        const user = await User.findOne({ username })
+        if (!user) return res.status(404).json({ message: 'Author not found' })
+
+        const blog = await Blog.findOne({ id: blogId, author: user._id, published: true })
 
         const likes = blog.likes
 
@@ -202,14 +202,18 @@ const unlikeBlog = async (req, res) => {
 
 const addComment = async (req, res) => {
     try {
-        const { id } = req.params
+        const { blogId, username } = req.params
+
+        const user = await User.findOne({ username })
+        if (!user) return res.status(404).json({ message: 'Author not found' })
+
+        const blog = await Blog.findOne({ id: blogId, author: user._id, published: true })
+
         const { content } = req.body
 
         if (!content) {
             return res.status(400).json({ message: 'Content is required' })
         }
-
-        const blog = await Blog.findOne({ id })
 
         if (!blog) {
             return res.status(404).json({ message: 'Blog not found' })
@@ -217,8 +221,7 @@ const addComment = async (req, res) => {
 
         const comment = {
             authorUsername: req.user.username,
-            authorFirstname: req.user.firstName,
-            authorLastname: req.user.lastName,
+            authorFullName: req.user.fullName,
             authorId: req.user._id,
             content,
             date: new Date()
