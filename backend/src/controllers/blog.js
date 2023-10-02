@@ -275,6 +275,37 @@ const getBlog = async (req, res) => {
     }
 }
 
+const getBlogComments = async (req, res) => {
+    try {
+        const { blogId, username } = req.params
+
+        const user = await User.findOne({ username })
+        if (!user) return res.status(404).json({ message: 'Author not found' })
+
+        const blog = await Blog.findOne({ id: blogId, author: user._id, published: true })
+
+        if (!blog) {
+            if (!req.headers.authorization) return res.status(404).json({ message: 'Blog not found' })
+
+            const currUser = getUserFromToken(req)
+            if (!currUser) return res.status(404).json({ message: 'Blog not found' })
+
+            const unPublishedBlog = await Blog.findOne({ id: blogId, author: currUser._id, published: false })
+
+            if (!unPublishedBlog) {
+                return res.status(404).json({ message: 'Blog not found' })
+            } else {
+                return res.status(200).json({ blog: unPublishedBlog })
+            }
+        }
+
+        res.status(200).json({ comments: blog.comments })
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(500)
+    }
+}
+
 module.exports = {
     createBlog,
     getBlogs,
@@ -283,5 +314,6 @@ module.exports = {
     likeBlog,
     unlikeBlog,
     addComment,
-    getBlog
+    getBlog,
+    getBlogComments
 }

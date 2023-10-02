@@ -48,7 +48,7 @@ const getUser = async (req, res) => {
             return res.status(404).json({ message: 'User not found' })
         }
 
-        const blogs = await Blog.find({ author: user._id })
+        const blogs = await Blog.find({ author: user._id }).populate('author')
 
         res.status(200).json({
             user: {

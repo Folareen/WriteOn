@@ -12,6 +12,7 @@ import { addComment, likeBlog, unlikeBlog } from "../../services/blog"
 import Skeleton from "../../components/Skeleton"
 import { MdOutlinePublic, MdOutlinePublicOff } from "react-icons/md"
 import { toast } from "react-toastify"
+import BlogCard from "../../components/BlogCard"
 
 
 const BlogContent = () => {
@@ -26,7 +27,9 @@ const BlogContent = () => {
     const [submittingComment, setSubmittingComment] = useState(false)
     const [refreshComments, setRefreshComments] = useState(false)
 
-    const refetchedBlog = useFetch(`/blog/${username}/${blogId}`, [username, blogId, refreshComments])
+    const comments = useFetch(`/blog/${username}/${blogId}/comments`, [username, blogId, refreshComments])
+
+    const moreBlogs = useFetch(`/user/${username}`, [username])
 
     const handleSubmitComment = async () => {
         try {
@@ -189,23 +192,23 @@ const BlogContent = () => {
                                 </Container>
 
                                 {
-                                    refetchedBlog.loading ?
+                                    comments.loading ?
                                         <div className="w-[90%] mx-auto">
                                             <Skeleton className='h-[80px] lg:h-[50px] max-w-5xl w-full mx-auto' />
                                             <Skeleton className='h-[80px] lg:h-[50px] max-w-5xl w-full mx-auto my-2 lg:my-4' />
                                             <Skeleton className='h-[80px] lg:h-[50px] max-w-5xl w-full mx-auto' />
                                         </div>
                                         :
-                                        refetchedBlog.error ?
+                                        comments.error ?
                                             <Error message={error} />
                                             :
-                                            refetchedBlog.data?.blog?.comments?.length > 0 ?
+                                            comments.data?.blog?.comments?.length > 0 ?
                                                 <div className="border-solid border-0 border-t-2 py-1 lg:py-2 max-w-5xl mx-auto w-[80%]">
                                                     <h3 className="text-[14px] lg:text-base mt-0.5 lg:mt-1 font-semibold">
                                                         Comments
                                                     </h3>
                                                     {
-                                                        refetchedBlog?.data?.blog?.comments.map((comment: any) => (
+                                                        comments?.data?.blog?.comments.map((comment: any) => (
                                                             <div className="my-2 lg:my-4 bg-gray-50 rounded-[10px] ">
                                                                 <div className="flex flex-row items-center space-x-2 lg:space-x-4 bg-gray-100 p-1.5 lg:p-2.5 rounded-t-[10px]">
                                                                     <Link to={`/${comment?.authorUsername}`} className="hover:underline font-semibold">
@@ -226,6 +229,28 @@ const BlogContent = () => {
                                                 </div>
                                                 :
                                                 <Message message="No comments found" />
+                                }
+
+                                {
+                                    moreBlogs?.data?.blogs.length > 0 &&
+                                    <Container className='border-solid border-0 border-t-2 py-2 lg:py-4'>
+                                        <h3 className="text-base lg:text-xl mb-1 lg:mb-2">
+                                            More blogs from <Link to={`/${username}`} className="hover:underline font-semibold">
+                                                {username}
+                                            </Link>
+                                        </h3>
+                                        <div className='gap-3 md:gap-4 lg:gap-7 grid grid-cols-2 md:grid-cols-3 '>
+
+                                            {
+                                                moreBlogs?.data?.blogs.slice(0, 3).map(({ id, coverImage, title, content, updatedAt, author: { username, avatar } }: any) => (
+                                                    <BlogCard id={id} coverImage={coverImage} title={title}
+                                                        content={content} date={updatedAt} authorUsername={username}
+                                                        authorAvatar={avatar} key={id} />
+                                                ))
+                                            }
+                                        </div>
+
+                                    </Container>
                                 }
                             </div>
                             :
