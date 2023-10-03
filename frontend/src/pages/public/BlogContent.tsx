@@ -202,13 +202,13 @@ const BlogContent = () => {
                                         comments.error ?
                                             <Error message={error} />
                                             :
-                                            comments.data?.blog?.comments?.length > 0 ?
+                                            comments.data?.comments?.length > 0 ?
                                                 <div className="border-solid border-0 border-t-2 py-1 lg:py-2 max-w-5xl mx-auto w-[80%]">
                                                     <h3 className="text-[14px] lg:text-base mt-0.5 lg:mt-1 font-semibold">
                                                         Comments
                                                     </h3>
                                                     {
-                                                        comments?.data?.blog?.comments.map((comment: any) => (
+                                                        comments?.data?.comments.map((comment: any) => (
                                                             <div className="my-2 lg:my-4 bg-gray-50 rounded-[10px] ">
                                                                 <div className="flex flex-row items-center space-x-2 lg:space-x-4 bg-gray-100 p-1.5 lg:p-2.5 rounded-t-[10px]">
                                                                     <Link to={`/${comment?.authorUsername}`} className="hover:underline font-semibold">
