@@ -9,6 +9,14 @@ const editProfile = async (req, res) => {
             return res.sendStatus(400)
         }
         const user = await User.findOne({ _id: req.user._id });
+        if (username.length > 10) {
+            return res.status(400).json({ message: "Username must not exceed 10 characters" })
+        }
+
+        const userNameTaken = await User.findOne({ username });
+        if (userNameTaken && username != req.user.username) {
+            return res.status(400).json({ message: 'Username already taken!' });
+        }
         if (username) {
             user.username = username
         }

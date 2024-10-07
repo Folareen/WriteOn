@@ -13,7 +13,10 @@ const Dashboard = () => {
   const { data, loading, error } = useFetch(`/user/${user?.username}`, [user?.username])
 
   return (
-    <Container className='bg-[#EFF3F0] text-[rgba(30,30,33,1)]'>
+    <Container className='bg-[#EFF3F0] text-[rgba(30,30,33,1)] py-6 md:py-8'>
+      <h1 className='font-semibold text-xl md:text-3xl'>
+        Welcome <span className='font-bold'>{user?.username}</span>
+      </h1>
       <div className='flex flex-col md:flex-row py-2 md:py-4 lg:items-start'>
         <div className='w-[90%] max-w-[400px] mx-auto md:mx-[unset] lg:w-1/3 p-4 md:p-6 shadow-md rounded-md '>                    {
           loading ?

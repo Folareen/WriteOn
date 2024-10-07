@@ -9,6 +9,7 @@ import CreateBlog from '../pages/private/CreateBlog'
 import Profile from '../pages/public/Profile'
 import BlogContent from '../pages/public/BlogContent'
 import EditBlog from '../pages/private/EditBlog'
+import EditProfile from '../pages/private/EditProfile'
 
 const PrivateRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const PrivateRoutes = () => {
           <Route path="/:username" element={<Profile />} />
           <Route path="/:username/:blogId" element={<BlogContent />} />
           <Route path="/:username/:blogId/edit" element={<EditBlog />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
