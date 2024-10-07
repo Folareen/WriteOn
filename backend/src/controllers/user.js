@@ -56,6 +56,7 @@ const getUser = async (req, res) => {
                 username: user.username,
                 fullName: user.fullName,
                 email: user.email,
+                avatar: user.avatar
             },
             blogs
         })
